@@ -8,6 +8,7 @@ app.use(bodyParser.json());
 
 const posts = {};
 
+
 app.get("/posts", (req, res) => {
     res.send(posts);
 });
@@ -23,11 +24,11 @@ app.post("/events", (req, res) => {
   }
 
   if (type === "CommentCreated") {
-    const { id, content, postId } = payload;
+    const { id, content, postId, status } = payload;
 
     if (postId in posts) {
       const post = posts[postId];
-      post.comments.push({ id, content });
+      post.comments.push({ id, content, status });
     }
   }
   res.send({});
