@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
+import axios from "axios";
 
 const app = express();
 app.use(cors());
@@ -48,4 +49,15 @@ app.post("/events", (req, res) => {
   res.send({});
 });
 
-app.listen(4002, () => console.log("Listening on 4002"));
+app.listen(4002, () => {
+  console.log("Listening on 4002");
+  axios
+    .get("http://localhost:4005/events")
+    .then((res) => {
+      res.data.forEach((event) => {
+        console.log(`Processing event: ${event.type}, ${event.payload}`);
+        handleEvent(event.type, event.payload);
+      });
+    })
+    .catch((err) => console.log(err));
+});
