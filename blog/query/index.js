@@ -8,15 +8,7 @@ app.use(bodyParser.json());
 
 const posts = {};
 
-
-app.get("/posts", (req, res) => {
-    res.send(posts);
-});
-
-app.post("/events", (req, res) => {
-  const { type, payload} = req.body;
-  console.log(req.body)
-
+const handleEvent = (type, payload) => {
   if (type === "PostCreated") {
     const { id, title } = payload;
 
@@ -33,14 +25,26 @@ app.post("/events", (req, res) => {
   }
 
   if (type === "CommentUpdated") {
-    console.log(payload)
-    const {id, content, postId, status} = payload;
+    console.log(payload);
+    const { id, content, postId, status } = payload;
 
-    const post = posts[postId]
-    const comment = post.comments.find((comment) => comment.id === id)
-    comment.status = status
-    comment.content = content
+    const post = posts[postId];
+    const comment = post.comments.find((comment) => comment.id === id);
+    comment.status = status;
+    comment.content = content;
   }
+};
+
+app.get("/posts", (req, res) => {
+  res.send(posts);
+});
+
+app.post("/events", (req, res) => {
+  const { type, payload } = req.body;
+  console.log(req.body);
+
+  handleEvent(type, payload);
+
   res.send({});
 });
 
