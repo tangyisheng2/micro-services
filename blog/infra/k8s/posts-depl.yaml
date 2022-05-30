@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: posts-depl
+
+spec:
+  replicas: 1
+  selector:
+    # Manage all pods with label posts
+    matchLabels:
+      app: posts
+  template:
+    # Specify the config for the pod we want to create
+    metadata:
+      labels:
+        app: posts
+    spec:
+      containers:
+        - name: posts
+          image: tangyisheng2/posts:0.0.1
