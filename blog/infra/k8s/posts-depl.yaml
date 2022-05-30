@@ -19,4 +19,4 @@ spec:
     spec:
       containers:
         - name: posts
-          image: tangyisheng2/posts:0.0.2
+          image: tangyisheng2/posts
