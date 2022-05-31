@@ -1,0 +1,38 @@
+
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: client-depl
+
+spec:
+  replicas: 1
+  selector:
+    # Manage all pods with label client
+    matchLabels:
+      app: client
+  template:
+    # Specify the config for the pod we want to create
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+        - name: client
+          image: tangyisheng2/client
+---
+# Begins a new object
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-srv
+spec:
+  type: ClusterIP
+  selector: 
+    app: client
+  ports:
+    - name: client
+      protocol: TCP
+      port: 4005  # Port of the services
+      targetPort: 4005 # Port of the Pod
