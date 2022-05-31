@@ -1,0 +1,38 @@
+
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: query-depl
+
+spec:
+  replicas: 1
+  selector:
+    # Manage all pods with label event-bus
+    matchLabels:
+      app: query
+  template:
+    # Specify the config for the pod we want to create
+    metadata:
+      labels:
+        app: query
+    spec:
+      containers:
+        - name: query
+          image: tangyisheng2/query
+---
+# Begins a new object
+apiVersion: v1
+kind: Service
+metadata:
+  name: query-srv
+spec:
+  type: ClusterIP
+  selector: 
+    app: query
+  ports:
+    - name: query
+      protocol: TCP
+      port: 4002  # Port of the services
+      targetPort: 4002 # Port of the Pod
