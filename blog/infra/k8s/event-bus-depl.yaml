@@ -1,0 +1,38 @@
+
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: event-bus-depl
+
+spec:
+  replicas: 1
+  selector:
+    # Manage all pods with label event-bus
+    matchLabels:
+      app: event-bus
+  template:
+    # Specify the config for the pod we want to create
+    metadata:
+      labels:
+        app: event-bus
+    spec:
+      containers:
+        - name: event-bus
+          image: tangyisheng2/event-bus
+---
+# Begins a new object
+apiVersion: v1
+kind: Service
+metadata:
+  name: event-bus-srv
+spec:
+  type: ClusterIP
+  selector: 
+    app: event-bus
+  ports:
+    - name: event-bus
+      protocol: TCP
+      port: 4005  # Port of the services
+      targetPort: 4005 # Port of the Pod
