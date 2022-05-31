@@ -1,0 +1,38 @@
+
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: moderation-depl
+
+spec:
+  replicas: 1
+  selector:
+    # Manage all pods with label event-bus
+    matchLabels:
+      app: moderation
+  template:
+    # Specify the config for the pod we want to create
+    metadata:
+      labels:
+        app: moderation
+    spec:
+      containers:
+        - name: moderation
+          image: tangyisheng2/moderation
+---
+# Begins a new object
+apiVersion: v1
+kind: Service
+metadata:
+  name: moderation-srv
+spec:
+  type: ClusterIP
+  selector: 
+    app: moderation
+  ports:
+    - name: moderation
+      protocol: TCP
+      port: 4003  # Port of the services
+      targetPort: 4003 # Port of the Pod
