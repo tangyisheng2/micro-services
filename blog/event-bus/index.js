@@ -10,6 +10,7 @@ const events = []; // Store a log of received events
 app.post("/events", (req, res) => {
   const event = req.body;
 
+  console.log("Event Received: ", event)
   console.log(events);
 
   events.push(event);
