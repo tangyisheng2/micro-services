@@ -1,0 +1,38 @@
+
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: comments-depl
+
+spec:
+  replicas: 1
+  selector:
+    # Manage all pods with label event-bus
+    matchLabels:
+      app: comments
+  template:
+    # Specify the config for the pod we want to create
+    metadata:
+      labels:
+        app: comments
+    spec:
+      containers:
+        - name: comments
+          image: tangyisheng2/comments
+---
+# Begins a new object
+apiVersion: v1
+kind: Service
+metadata:
+  name: comments-srv
+spec:
+  type: ClusterIP
+  selector: 
+    app: comments
+  ports:
+    - name: comments
+      protocol: TCP
+      port: 4001  # Port of the services
+      targetPort: 4001 # Port of the Pod
