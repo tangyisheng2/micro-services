@@ -7,7 +7,7 @@ function CommentCreate({ postId }) {
   const submitForm = (postId) => {
     console.log("submit", postId, newComment);
     return axios
-      .post(`${ENDPOINT}:4001/posts/${postId}/comments`, {
+      .post(`${ENDPOINT}/posts/${postId}/comments`, {
         content: newComment,
       })
       .then((res) => {

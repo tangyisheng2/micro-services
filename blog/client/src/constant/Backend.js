@@ -1,1 +1,1 @@
-export const ENDPOINT = "http://posts.com:59209";
+export const ENDPOINT = "http://posts.com";

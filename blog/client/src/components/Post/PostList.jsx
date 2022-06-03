@@ -5,7 +5,7 @@ import {ENDPOINT} from '../../constant/Backend'
 
 function PostList() {
   const fetchPosts = () => {
-    axios.get(`${ENDPOINT}:4002/posts`).then((res) => {
+    axios.get(`${ENDPOINT}/posts`).then((res) => {
       console.log(res.data)
       setPosts(res.data);
     });
