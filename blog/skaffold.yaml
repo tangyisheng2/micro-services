@@ -1,0 +1,80 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+
+build:
+  local:
+    push: false
+    concurrency: 1
+    tryImportMissing: false
+    useDockerCLI: false
+  artifacts:
+    - image: tangyisheng2/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+        noCache: false
+        pullParent: false
+        squash: false
+      sync:
+        manual:
+          - dest: .
+            src: 'src/../*.js'
+    - image: tangyisheng2/comments
+      context: comments
+      docker:
+        dockerfile: Dockerfile
+        noCache: false
+        pullParent: false
+        squash: false
+      sync:
+        manual:
+          - dest: .
+            src: '*.js'
+    - image: tangyisheng2/event-bus
+      context: event-bus
+      docker:
+        dockerfile: Dockerfile
+        noCache: false
+        pullParent: false
+        squash: false
+      sync:
+        manual:
+          - dest: .
+            src: '*.js'
+    - image: tangyisheng2/moderation
+      context: moderation
+      docker:
+        dockerfile: Dockerfile
+        noCache: false
+        pullParent: false
+        squash: false
+      sync:
+        manual:
+          - dest: .
+            src: '*.js'
+    - image: tangyisheng2/posts
+      context: posts
+      docker:
+        dockerfile: Dockerfile
+        noCache: false
+        pullParent: false
+        squash: false
+      sync:
+        manual:
+          - dest: .
+            src: '*.js'
+    - image: tangyisheng2/query
+      context: query
+      docker:
+        dockerfile: Dockerfile
+        noCache: false
+        pullParent: false
+        squash: false
+      sync:
+        manual:
+          - dest: .
+            src: '*.js'
