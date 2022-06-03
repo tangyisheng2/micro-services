@@ -8,17 +8,11 @@ deploy:
 build:
   local:
     push: false
-    concurrency: 1
-    tryImportMissing: false
-    useDockerCLI: false
   artifacts:
     - image: tangyisheng2/client
       context: client
       docker:
         dockerfile: Dockerfile
-        noCache: false
-        pullParent: false
-        squash: false
       sync:
         manual:
           - dest: .
@@ -27,9 +21,6 @@ build:
       context: comments
       docker:
         dockerfile: Dockerfile
-        noCache: false
-        pullParent: false
-        squash: false
       sync:
         manual:
           - dest: .
@@ -38,9 +29,6 @@ build:
       context: event-bus
       docker:
         dockerfile: Dockerfile
-        noCache: false
-        pullParent: false
-        squash: false
       sync:
         manual:
           - dest: .
@@ -49,9 +37,6 @@ build:
       context: moderation
       docker:
         dockerfile: Dockerfile
-        noCache: false
-        pullParent: false
-        squash: false
       sync:
         manual:
           - dest: .
@@ -60,9 +45,6 @@ build:
       context: posts
       docker:
         dockerfile: Dockerfile
-        noCache: false
-        pullParent: false
-        squash: false
       sync:
         manual:
           - dest: .
@@ -71,9 +53,6 @@ build:
       context: query
       docker:
         dockerfile: Dockerfile
-        noCache: false
-        pullParent: false
-        squash: false
       sync:
         manual:
           - dest: .
