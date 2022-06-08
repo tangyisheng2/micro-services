@@ -1,4 +1,4 @@
-apiVersion: skaffold/v2alpha3
+apiVersion: skaffold/v2beta13
 kind: Config
 deploy:
   kubectl:
@@ -12,9 +12,6 @@ build:
       context: auth
       docker:
         dockerfile: Dockerfile
-        noCache: false
-        pullParent: false
-        squash: false
       sync:
         manual:
           - dest: 'src/**/*.ts'
