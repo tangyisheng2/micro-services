@@ -16,13 +16,11 @@ export const errorHandler = (
                 field: error.param,
             };
         });
-        res.status(400).send(formattedErrors);
-        return;
+        return res.status(400).send(formattedErrors);
     }
 
     if (err instanceof DatabaseConnectionError) {
-        console.log('Handling DB Error');
-        return;
+        return res.status(500).send({ errors: [{ message: err.reason }] });
     }
 
     res.status(400).send({
