@@ -1,5 +1,7 @@
 import express, { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
+import { DatabaseConnectionError } from '../middlewares/database-connection-error';
+import { RequestValidationError } from '../middlewares/request-validation-error';
 
 const router = express.Router();
 
@@ -16,11 +18,11 @@ router.post(
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
-            throw new Error('Invalid email or password'); // express会将error自动提交给中间件
+            throw new RequestValidationError(errors.array()); // express会将error自动提交给中间件
         }
 
         const { email, password } = req.body;
-        throw new Error('Error connecting to database');
+        throw new DatabaseConnectionError();
 
         res.send({ email, password });
     }
