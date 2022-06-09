@@ -8,6 +8,6 @@ export const errorHandler = (
 ) => {
     console.log('Error: ', err);
     res.status(400).send({
-        msg: err,
+        msg: err.message,
     });
 };
