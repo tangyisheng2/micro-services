@@ -26,7 +26,6 @@ spec:
     app: auth
   ports:
     - name: auth
-      type: ClusterIP
       protocol: TCP
       port: 3000
       targetPort: 3000
