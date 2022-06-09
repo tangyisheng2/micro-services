@@ -9,13 +9,11 @@ export const errorHandler = (
     next: NextFunction
 ) => {
     if (err instanceof RequestValidationError) {
-        const formattedErrors = err.errors.map((error) => {
-            // Use return to fix: Error: Cannot set headers after they are sent to the client
-            return {
-                message: error.msg,
-                field: error.param,
-            };
-        });
+        const formattedErrors = err.errors.map((error) => ({
+            message: error.msg,
+            field: error.param,
+        }));
+        // Use return to fix: Error: Cannot set headers after they are sent to the client
         return res.status(400).send(formattedErrors);
     }
 
@@ -24,6 +22,6 @@ export const errorHandler = (
     }
 
     res.status(400).send({
-        msg: err.message,
+        errors: [{ message: 'Something went wrong!' }],
     });
 };
