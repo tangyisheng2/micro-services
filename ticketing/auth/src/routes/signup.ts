@@ -6,4 +6,4 @@ router.post('/api/users/signup', (req, res) => {
     res.send('sign up');
 });
 
-export default router;
+export { router as signupRouter };

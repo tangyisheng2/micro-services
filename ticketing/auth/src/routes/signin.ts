@@ -5,4 +5,5 @@ const router = express.Router();
 router.post('/api/users/signin', (req, res) => {
     res.send('Sign in!');
 });
-export default router;
+
+export { router as signinRouter };
