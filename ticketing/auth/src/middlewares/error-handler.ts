@@ -10,7 +10,7 @@ export const errorHandler = (
 ) => {
     if (err instanceof RequestValidationError) {
         // Use return to fix: Error: Cannot set headers after they are sent to the client
-        return res.status(err.statusCode).send(err.serializedError());
+        return res.status(err.statusCode).send(err.serializeErrors());
     }
 
     if (err instanceof DatabaseConnectionError) {
