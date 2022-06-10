@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { DatabaseConnectionError } from '../errors/database-connection-error';
-import { RequestValidationError } from '../errors/request-validation-error';
+import { CustomError } from '../errors/custom-error';
 
 export const errorHandler = (
     err: Error,
@@ -8,12 +7,8 @@ export const errorHandler = (
     res: Response,
     next: NextFunction
 ) => {
-    if (err instanceof RequestValidationError) {
+    if (err instanceof CustomError) {
         // Use return to fix: Error: Cannot set headers after they are sent to the client
-        return res.status(err.statusCode).send(err.serializeErrors());
-    }
-
-    if (err instanceof DatabaseConnectionError) {
         return res.status(err.statusCode).send(err.serializeErrors());
     }
 
