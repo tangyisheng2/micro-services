@@ -1,4 +1,5 @@
 import express from 'express';
+import 'express-serve-static-core';
 import { json } from 'body-parser';
 
 import { currentUserRouter } from './routes/current-user';
@@ -19,6 +20,12 @@ app.use(signoutRouter);
 app.all('*', () => {
     throw new NotFoundError();
 });
+
+// Async version
+// app.all('*', async (req, res, next) => {
+//     next( new NotFoundError());
+// });
+// Or use express-async-errors
 
 app.use(errorHandler);
 
