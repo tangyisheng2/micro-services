@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
 import { DatabaseConnectionError } from '../errors/database-connection-error';
 import { RequestValidationError } from '../errors/request-validation-error';
+import { User } from '../models/user';
 
 const router = express.Router();
 
@@ -22,9 +23,24 @@ router.post(
         }
 
         const { email, password } = req.body;
-        throw new DatabaseConnectionError();
 
-        res.send({ email, password });
+        // Check if user exists
+        User.findOne({ email })
+            .then((existingUser) => {
+                // If user already exist
+                if (existingUser) {
+                    console.log('Email in use');
+                    return res.send({});
+                }
+                // todo: encrypt password
+
+                // If user not exist, create it
+                const user = User.build({ email, password });
+                return user.save();
+            })
+            .then((user) => {
+                return res.status(201).send(user);
+            });
     }
 );
 
