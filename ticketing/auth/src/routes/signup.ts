@@ -30,7 +30,9 @@ router.post(
                 // If user already exist
                 if (existingUser) {
                     console.log('Email in use');
-                    return res.send({});
+                    return res.send({
+                        message: `User already exist (${email})`,
+                    });
                 }
                 // todo: encrypt password
 
