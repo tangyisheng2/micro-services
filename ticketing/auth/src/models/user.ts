@@ -8,7 +8,7 @@ interface UserAttrs {
 
 // Interface: describes properties of the User Model
 interface UserModel extends mongoose.Model<UserDoc> {
-    build(attrs: UserAttrs): any;
+    build(attrs: UserAttrs): UserModel;
 }
 
 // Interface: describes properties of the user document
