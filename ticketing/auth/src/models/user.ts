@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { Password } from '../services/password';
 
 // Interface: describes properties to creat a new user
 interface UserAttrs {
@@ -28,6 +29,17 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+});
+
+// Password hashing function
+userSchema.pre('save', function (done) {
+    if (this.isModified('password')) {
+        Password.toHash(this.get('password')).then((hashed) =>
+            this.set('password', hashed)
+        );
+    }
+    // Always call done() when finished processing
+    done();
 });
 
 // Add new methods in the model
