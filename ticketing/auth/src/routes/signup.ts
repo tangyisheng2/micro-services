@@ -37,8 +37,8 @@ router.post(
             // If user not exist, create it
             const user = User.build({ email, password });
 
-            return user.save().then(() => {
-                return res.status(201).send(res);
+            return user.save().then((userResult) => {
+                return res.status(201).send(userResult);
             });
         });
     }
