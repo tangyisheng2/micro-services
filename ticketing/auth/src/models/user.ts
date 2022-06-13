@@ -1,4 +1,4 @@
-import mongoose, { Mongoose } from 'mongoose';
+import mongoose from 'mongoose';
 
 // Interface: describes properties to creat a new user
 interface UserAttrs {
@@ -8,7 +8,7 @@ interface UserAttrs {
 
 // Interface: describes properties of the User Model
 interface UserModel extends mongoose.Model<UserDoc> {
-    build(attrs: UserAttrs): UserModel;
+    build(attrs: UserAttrs): UserDoc;
 }
 
 // Interface: describes properties of the user document
@@ -35,4 +35,5 @@ userSchema.statics.build = (attrs: UserAttrs) => {
     return new User(attrs);
 };
 
-export const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
+const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
+export { User };

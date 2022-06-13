@@ -1,6 +1,5 @@
 import express, { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
-import { DatabaseConnectionError } from '../errors/database-connection-error';
 import { RequestValidationError } from '../errors/request-validation-error';
 import { User } from '../models/user';
 
@@ -37,7 +36,8 @@ router.post(
 
             // If user not exist, create it
             const user = User.build({ email, password });
-            return user.save().then((res) => {
+
+            return user.save().then(() => {
                 return res.status(201).send(res);
             });
         });
