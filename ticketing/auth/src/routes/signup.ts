@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
+import { BadRequestError } from '../errors/bad-request-error';
 import { RequestValidationError } from '../errors/request-validation-error';
 import { User } from '../models/user';
 
@@ -27,10 +28,8 @@ router.post(
         User.findOne({ email }).then((existingUser) => {
             // If user already exist
             if (existingUser) {
-                console.log('Email in use');
-                return res.send({
-                    message: `User already exist (${email})`,
-                });
+                console.log(`Email in use ${email}`);
+                throw new BadRequestError(`Email in use ${email}`);
             }
             // todo: encrypt password
 
