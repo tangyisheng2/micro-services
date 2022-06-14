@@ -34,9 +34,9 @@ const userSchema = new mongoose.Schema({
 // Password hashing function
 userSchema.pre('save', function (done) {
     if (this.isModified('password')) {
-        Password.toHash(this.get('password')).then((hashed) =>
-            this.set('password', hashed)
-        );
+        return Password.toHash(this.get('password')).then((hashed) => {
+            this.set('password', hashed);
+        });
     }
     // Always call done() when finished processing
     done();
