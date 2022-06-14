@@ -15,7 +15,7 @@ router.post(
             .isLength({ min: 4, max: 20 })
             .withMessage('Password must between 4 - 20 characters'),
     ],
-    (req: Request, res: Response) => {
+    async (req: Request, res: Response) => {
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
@@ -23,23 +23,35 @@ router.post(
         }
 
         const { email, password } = req.body;
+        // throw new BadRequestError(`Email in use ${email}`);
 
         // Check if user exists
-        User.findOne({ email }).then((existingUser) => {
-            // If user already exist
-            if (existingUser) {
-                console.log(`Email in use ${email}`);
-                throw new BadRequestError(`Email in use ${email}`);
-            }
-            // todo: encrypt password
+        // User.findOne({ email }).then((existingUser) => {
 
-            // If user not exist, create it
-            const user = User.build({ email, password });
+        //     // If user already exist
+        //     if (existingUser) {
+        //         console.log(`Email in use ${email}`);
+        //         throw new BadRequestError(`Email in use ${email}`);
+        //     }
+        //     // todo: encrypt password
 
-            return user.save().then((userResult) => {
-                return res.status(201).send(userResult);
-            });
-        });
+        //     // If user not exist, create it
+        //     const user = User.build({ email, password });
+
+        //     return user.save().then((userResult) => {
+        //         return res.status(201).send(userResult);
+        //     });
+        // });
+
+        const existingUser = await User.findOne({ email });
+
+        if (existingUser) {
+            throw new BadRequestError('Email in use');
+        }
+
+        const user = User.build({ email, password });
+        await user.save();
+        res.status(201).send(user);
     }
 );
 
