@@ -20,16 +20,33 @@ interface UserDoc extends mongoose.Document {
     createdAt: string;
 }
 
-const userSchema = new mongoose.Schema({
-    email: {
-        type: String, // Specific to mongoose, not TS
-        required: true,
+const userSchema = new mongoose.Schema(
+    {
+        email: {
+            type: String, // Specific to mongoose, not TS
+            required: true,
+        },
+        password: {
+            type: String,
+            required: true,
+        },
     },
-    password: {
-        type: String,
-        required: true,
-    },
-});
+    {
+        // This will modify the returning UserDoc
+        toJSON: {
+            transform(doc, ret) {
+                // @param input: input UserModel
+                // @param ret: returned UserDoc
+                delete ret.password;
+                // delete ret.__v;
+                this.versionKey = false;
+
+                ret.id = ret._id;
+                delete ret._id;
+            },
+        },
+    }
+);
 
 // Password hashing function
 userSchema.pre('save', function (done) {
