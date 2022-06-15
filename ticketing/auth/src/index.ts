@@ -14,17 +14,17 @@ import cookieSession from 'cookie-session';
 const app = express();
 app.set('trust proxy', true); // Traffic is proxyed to express, and trust the traffic
 app.use(json());
+app.use(
+    cookieSession({
+        signed: false, // Disable encryption
+        // secure: true, // Require HTTPS connection
+    })
+);
 
 app.use(currentUserRouter);
 app.use(signinRouter);
 app.use(signupRouter);
 app.use(signoutRouter);
-app.use(
-    cookieSession({
-        signed: false,
-        // secure: true, // Require HTTPS connection
-    })
-);
 
 app.all('*', () => {
     throw new NotFoundError();
