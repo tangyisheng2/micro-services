@@ -8,7 +8,10 @@ router.post(
     '/api/users/signin',
     [
         body('email').isEmail().withMessage('Email mest be valid'),
-        body('password').trim().withMessage('You mest suppy a password'),
+        body('password')
+            .trim()
+            .notEmpty()
+            .withMessage('You must supply a password'),
     ],
     (req: Request, res: Response) => {
         const errors = validationResult(req);
