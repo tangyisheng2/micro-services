@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { CustomError } from '../errors/custom-error';
 
+// Error handling middleware have an extra err parameter
 export const errorHandler = (
     err: Error,
     req: Request,
