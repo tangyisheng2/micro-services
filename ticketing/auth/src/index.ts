@@ -22,7 +22,7 @@ app.use(signoutRouter);
 app.use(
     cookieSession({
         signed: false,
-        secure: true, // Require HTTPS connection
+        // secure: true, // Require HTTPS connection
     })
 );
 
