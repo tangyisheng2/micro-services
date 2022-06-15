@@ -38,8 +38,8 @@ const userSchema = new mongoose.Schema(
                 // @param input: input UserModel
                 // @param ret: returned UserDoc
                 delete ret.password;
-                // delete ret.__v;
-                this.versionKey = false;
+                delete ret.__v;
+                // this.versionKey = false;
 
                 ret.id = ret._id;
                 delete ret._id;
