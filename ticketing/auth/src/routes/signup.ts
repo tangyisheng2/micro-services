@@ -58,7 +58,7 @@ router.post(
                 id: user.id,
                 email: user.email,
             },
-            '1234'
+            'thisisajwtsecret'
         );
 
         // Store it in session object
