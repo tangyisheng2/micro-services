@@ -7,7 +7,9 @@ import { Password } from '../services/password';
 import jwt from 'jsonwebtoken';
 
 const router = express.Router();
-
+/**
+ * This function signs in a user and return the JWT.
+ */
 router.post(
     '/api/users/signin',
     [

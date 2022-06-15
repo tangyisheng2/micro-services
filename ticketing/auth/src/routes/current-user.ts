@@ -2,7 +2,10 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 
 const router = express.Router();
-
+/**
+ * This function gets the info of the current signed user
+ * by looking up the JWT in the cookies
+ */
 router.get('/api/users/currentuser', (req, res) => {
     if (!req.session?.jwt) {
         // "?" checks if the internal property exist or not

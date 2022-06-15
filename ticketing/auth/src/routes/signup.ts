@@ -6,7 +6,11 @@ import jwt from 'jsonwebtoken';
 import { validateRequest } from '../middlewares/validate-request';
 
 const router = express.Router();
-
+/**
+ * This function signs up a user and returns the user id, email, and JWT.
+ * Sign up includes: Check if there is an existing user, and add new
+ * record to database.
+ */
 router.post(
     '/api/users/signup',
     [
