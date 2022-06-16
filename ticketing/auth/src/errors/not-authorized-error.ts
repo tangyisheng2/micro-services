@@ -10,6 +10,6 @@ export class NotAuthorizedError extends CustomError {
     }
 
     serializeErrors(): { message: string; field?: string | undefined }[] {
-        throw [{ message: 'Not Authorized' }];
+        return [{ message: 'Not Authorized' }];
     }
 }
