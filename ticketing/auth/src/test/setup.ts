@@ -2,11 +2,13 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import { app } from '../app';
 import mongoose from 'mongoose';
 
-let mongo: MongoMemoryServer;
+let mongo: any;
 
 beforeAll(async () => {
-    mongo = new MongoMemoryServer();
-    const mongoUri = await mongo.getUri();
+    process.env.JWT_KEY = 'hahathisisafakekey';
+
+    mongo = await MongoMemoryServer.create();
+    const mongoUri = mongo.getUri();
 
     await mongoose.connect(mongoUri, {
         // useNewUrlParser: true,
