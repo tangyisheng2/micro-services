@@ -8,14 +8,19 @@ import axios from 'axios';
  * @param {*} body query body
  * @returns
  */
-function useRequest({ url, method, body }) {
+function useRequest({ url, method, body, onSuccess }) {
     const [errors, setErrors] = useState(null);
-
+    console.log(url, method, body);
     const doRequest = () => {
         setErrors(null);
         axios[method](url, body)
             .then((res) => {
                 const response = res;
+                console.log(response);
+                // If no errer and onSuccess is defined, run onSuccess()
+                if (onSuccess) {
+                    onSuccess(response.data);
+                }
             })
             .catch((err) => {
                 console.log(err);
