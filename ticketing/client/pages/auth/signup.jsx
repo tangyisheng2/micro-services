@@ -1,13 +1,19 @@
+import axios from 'axios';
 import { useState } from 'react';
 
 function signUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const submitData = (e) => {
+    const submitData = async (e) => {
         e.preventDefault();
 
-        console.log({ email, password });
+        const response = await axios.post('/api/users/signup', {
+            email,
+            password,
+        });
+
+        console.log(response.data);
     };
 
     return (
