@@ -1,42 +1,45 @@
 import axios from 'axios';
 import { useState } from 'react';
+import useRequest from '../../hooks/use-request';
 
 function signUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [successMsg, setSuccessMsg] = useState({});
-    const [errors, setErrors] = useState([]);
+    // const [errors, setErrors] = useState([]);
+    const { doRequest, errors } = useRequest({
+        url: '/api/users/signup',
+        method: 'post',
+        post: {
+            email,
+            password,
+        },
+    });
 
     const submitData = async (e) => {
         e.preventDefault();
 
-        axios
-            .post('/api/users/signup', {
-                email,
-                password,
-            })
-            .then((result) => {
-                console.log(result);
-                setSuccessMsg(result.data);
-            })
-            .catch((err) => {
-                console.log(err);
-                setErrors(err.response.data);
-            });
+        doRequest();
+
+        // axios
+        //     .post('/api/users/signup', {
+        //         email,
+        //         password,
+        //     })
+        //     .then((result) => {
+        //         console.log(result);
+        //         setSuccessMsg(result.data);
+        //     })
+        //     .catch((err) => {
+        //         console.log(err);
+        //         setErrors(err.response.data);
+        //     });
     };
 
     return (
         <form onSubmit={submitData}>
             <h1>Sign Up Form</h1>
-            {errors.length > 0 && (
-                <div className="alert alert-danger">
-                    <ul>
-                        {errors.map((err) => {
-                            return <li key={err.message}>{err.message}</li>;
-                        })}
-                    </ul>
-                </div>
-            )}
+            {errors}
             {successMsg && (
                 <div className="successMsg success">
                     <ul>
