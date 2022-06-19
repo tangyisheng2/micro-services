@@ -10,7 +10,8 @@ function Index({ currentUser }) {
     );
 }
 
-Index.getInitialProps = () => {
+Index.getInitialProps = ({ req }) => {
+    // console.log(req.headers);
     let url = '/api/users/currentuser';
     if (typeof window === 'undefined') {
         console.log('On server!');
@@ -28,7 +29,7 @@ Index.getInitialProps = () => {
             // Request Option #1
             url,
             {
-                host: 'ticketing.dev',
+                headers: req.headers,
             }
         )
         .then((res) => {
