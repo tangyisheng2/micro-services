@@ -13,11 +13,17 @@ function Index({ currentUser }) {
 
 Index.getInitialProps = ({ req }) => {
     const axiosClient = BuildClient({ req });
-    return axiosClient.get('/api/users/currentuser').then((res) => {
-        const response = res.data;
-        console.log(response);
-        return { currentUser: response.currentUser.email };
-    });
+    return axiosClient
+        .get('/api/users/currentuser')
+        .then((res) => {
+            const response = res.data;
+            console.log(response);
+            return { currentUser: response.currentUser.email };
+        })
+        .catch((err) => {
+            console.log(err);
+            return { currentUser: 'Not Authorized' };
+        });
 };
 
 export default Index;
