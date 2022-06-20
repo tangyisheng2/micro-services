@@ -16,14 +16,12 @@ function useRequest({ url, method, body, onSuccess }) {
         axios[method](url, body)
             .then((res) => {
                 const response = res;
-                console.log(response);
                 // If no errer and onSuccess is defined, run onSuccess()
                 if (onSuccess) {
                     onSuccess(response.data);
                 }
             })
             .catch((err) => {
-                console.log(err);
                 setErrors(
                     <div className="alert alert-danger">
                         <ul>
