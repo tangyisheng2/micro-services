@@ -28,7 +28,7 @@ Index.getInitialProps = ({ req }) => {
             return { currentUser: response.currentUser.email };
         })
         .catch((err) => {
-            console.log(err);
+            console.log(err.message);
             return { currentUser: 'Not Authorized' };
         });
 };
