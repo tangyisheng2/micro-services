@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import BuildClient from '../api/build-client';
+import Header from '../components/Header';
 /**
  * The custom app component
  * Note that the parameter passed in are different
@@ -12,7 +13,7 @@ import BuildClient from '../api/build-client';
 function _app({ Component, pageProps, currentUser }) {
     return (
         <div>
-            <h1>Header {currentUser.email}</h1>
+            <Header currentUser={currentUser} />
             <Component {...pageProps} />
         </div>
     );
@@ -30,10 +31,17 @@ _app.getInitialProps = async (appContext) => {
     const client = BuildClient(appContext.ctx);
     // console.log(appContext.ctx);
 
-    const data = (await client.get('/api/users/currentuser')).data;
-    const pageProps = await appContext.Component.getInitialProps(
-        appContext.ctx
-    );
+    const data = await client
+        .get('/api/users/currentuser')
+        .catch((err) => console.log(err.message));
+
+    let pageProps = {};
+    if (appContext.Component.getInitialProps) {
+        pageProps = await appContext.Component.getInitialProps(
+            appContext.ctx
+        ).catch((err) => console.log(err, message));
+    }
+
     return {
         pageProps,
         ...data,
