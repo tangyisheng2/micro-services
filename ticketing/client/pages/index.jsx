@@ -1,4 +1,3 @@
-import axios from 'axios';
 import BuildClient from '../api/build-client';
 
 function Index({ currentUser }) {
