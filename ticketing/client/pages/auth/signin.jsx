@@ -42,7 +42,7 @@ function signIn() {
 
     return (
         <form onSubmit={submitData}>
-            <h1>Sign Up Form</h1>
+            <h1>Sign In Form</h1>
             {errors}
             {successMsg && (
                 <div className="successMsg success">
