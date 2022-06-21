@@ -37,14 +37,13 @@ _app.getInitialProps = async (appContext) => {
 
     let pageProps = {};
     if (appContext.Component.getInitialProps) {
-        pageProps = await appContext.Component.getInitialProps(
-            appContext.ctx
-        ).catch((err) => console.log(err, message));
+        pageProps = await appContext.Component.getInitialProps(appContext.ctx);
+        // .catch((err) => console.log(err, message));
     }
 
     return {
         pageProps,
-        ...data,
+        ...data?.data,
     };
 };
 
