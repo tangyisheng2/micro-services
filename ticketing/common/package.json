@@ -1,0 +1,21 @@
+{
+  "name": "@tangyisheng2-ticket/common",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "types": "./build/index.d.ts",
+  "files": [
+    "build/**/*"
+  ],
+  "scripts": {
+    "clean": "del ./build/*",
+    "build": "npm run clean && tsc"
+  },
+  "keywords": [],
+  "author": "tangyisheng2",
+  "license": "AGPL-3.0-or-later",
+  "dependencies": {
+    "del-cli": "^4.0.1",
+    "typescript": "^4.7.4"
+  }
+}
