@@ -24,3 +24,12 @@ build:
         manual:
           - dest: '**/*.js'
             src: .
+
+    - image: tangyisheng2/tickets
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: 'src/**/*.ts'
+            src: .
