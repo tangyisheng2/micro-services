@@ -1,10 +1,9 @@
+import { BadRequestError, validateRequest } from '@tangyisheng2-ticket/common';
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
-import { BadRequestError } from '@tangyisheng2-ticket/common';
-import { validateRequest } from '@tangyisheng2-ticket/common';
+import jwt from 'jsonwebtoken';
 import { User } from '../models/user';
 import { Password } from '../services/password';
-import jwt from 'jsonwebtoken';
 
 const router = express.Router();
 /**

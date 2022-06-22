@@ -1,6 +1,5 @@
+import { currentUser, requireAuth } from '@tangyisheng2-ticket/common';
 import express from 'express';
-import { currentUser } from '@tangyisheng2-ticket/common';
-import { requireAuth } from '@tangyisheng2-ticket/common';
 
 const router = express.Router();
 /**

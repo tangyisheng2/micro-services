@@ -1,14 +1,13 @@
+import { json } from 'body-parser';
 import express from 'express';
 import 'express-async-errors';
-import { json } from 'body-parser';
 
+import { errorHandler, NotFoundError } from '@tangyisheng2-ticket/common';
+import cookieSession from 'cookie-session';
 import { currentUserRouter } from './routes/current-user';
 import { signinRouter } from './routes/signin';
 import { signoutRouter } from './routes/signout';
 import { signupRouter } from './routes/signup';
-import { errorHandler } from '@tangyisheng2-ticket/common';
-import { NotFoundError } from '@tangyisheng2-ticket/common';
-import cookieSession from 'cookie-session';
 
 const app = express();
 app.set('trust proxy', true); // Traffic is proxyed to express, and trust the traffic
