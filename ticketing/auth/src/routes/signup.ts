@@ -1,9 +1,9 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
-import { BadRequestError } from '../errors/bad-request-error';
+import { BadRequestError } from '@tangyisheng2-ticket/common';
 import { User } from '../models/user';
 import jwt from 'jsonwebtoken';
-import { validateRequest } from '../middlewares/validate-request';
+import { validateRequest } from '@tangyisheng2-ticket/common';
 
 const router = express.Router();
 /**

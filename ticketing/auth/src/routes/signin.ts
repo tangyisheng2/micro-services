@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
-import { BadRequestError } from '../errors/bad-request-error';
-import { validateRequest } from '../middlewares/validate-request';
+import { BadRequestError } from '@tangyisheng2-ticket/common';
+import { validateRequest } from '@tangyisheng2-ticket/common';
 import { User } from '../models/user';
 import { Password } from '../services/password';
 import jwt from 'jsonwebtoken';
