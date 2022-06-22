@@ -8,7 +8,7 @@ if (!process.env.JWT_KEY) {
 }
 
 mongoose
-    .connect('mongodb://ticket-mongo-srv:27017/ticket')
+    .connect('mongodb://tickets-mongo-srv:27017/tickets')
     .then(() => {
         app.listen(3000, () => {
             console.log('Listening on port 3000');
