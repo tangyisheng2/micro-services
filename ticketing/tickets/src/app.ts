@@ -2,8 +2,13 @@ import { json } from 'body-parser';
 import express from 'express';
 import 'express-async-errors';
 
-import { errorHandler, NotFoundError } from '@tangyisheng2-ticket/common';
+import {
+    currentUser,
+    errorHandler,
+    NotFoundError,
+} from '@tangyisheng2-ticket/common';
 import cookieSession from 'cookie-session';
+import { createTicketRouter } from './routes/new';
 
 const app = express();
 app.set('trust proxy', true); // Traffic is proxyed to express, and trust the traffic
@@ -14,6 +19,8 @@ app.use(
         // secure: true, // Require HTTPS connection
     })
 );
+app.use(currentUser);
+app.use(createTicketRouter);
 
 app.all('*', () => {
     throw new NotFoundError();
