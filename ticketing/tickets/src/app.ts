@@ -11,6 +11,7 @@ import cookieSession from 'cookie-session';
 import { indexTicketRouter } from './routes';
 import { createTicketRouter } from './routes/new';
 import { showTicketsRouter } from './routes/showTicket';
+import { updateTicketRouter } from './routes/update';
 
 const app = express();
 app.set('trust proxy', true); // Traffic is proxyed to express, and trust the traffic
@@ -25,6 +26,7 @@ app.use(currentUser);
 app.use(createTicketRouter);
 app.use(showTicketsRouter);
 app.use(indexTicketRouter);
+app.use(updateTicketRouter);
 
 app.all('*', () => {
     throw new NotFoundError();
