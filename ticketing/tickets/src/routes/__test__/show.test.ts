@@ -32,7 +32,7 @@ it('it returns a ticket if ticket is found', async () => {
         .get(`/api/tickets/${response.body.id}`)
         .send();
 
-    console.log('Show tickets - ticketResponse', ticketResponse.body);
+    // console.log('Show tickets - ticketResponse', ticketResponse.body);
     expect(ticketResponse.body.title).toEqual(response.body.title);
     expect(ticketResponse.body.price).toEqual(response.body.price);
 });
