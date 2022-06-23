@@ -8,6 +8,7 @@ import {
     NotFoundError,
 } from '@tangyisheng2-ticket/common';
 import cookieSession from 'cookie-session';
+import { indexTicketRouter } from './routes';
 import { createTicketRouter } from './routes/new';
 import { showTicketsRouter } from './routes/showTicket';
 
@@ -23,6 +24,7 @@ app.use(
 app.use(currentUser);
 app.use(createTicketRouter);
 app.use(showTicketsRouter);
+app.use(indexTicketRouter);
 
 app.all('*', () => {
     throw new NotFoundError();
