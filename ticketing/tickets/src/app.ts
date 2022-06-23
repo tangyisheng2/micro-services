@@ -9,6 +9,7 @@ import {
 } from '@tangyisheng2-ticket/common';
 import cookieSession from 'cookie-session';
 import { createTicketRouter } from './routes/new';
+import { showTicketsRouter } from './routes/showTicket';
 
 const app = express();
 app.set('trust proxy', true); // Traffic is proxyed to express, and trust the traffic
@@ -21,6 +22,7 @@ app.use(
 );
 app.use(currentUser);
 app.use(createTicketRouter);
+app.use(showTicketsRouter);
 
 app.all('*', () => {
     throw new NotFoundError();
