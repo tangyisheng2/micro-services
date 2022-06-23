@@ -1,5 +1,11 @@
 import express, { Request, Response } from 'express';
-import { currentUser, requireAuth } from '@tangyisheng2-ticket/common';
+import {
+    currentUser,
+    requireAuth,
+    validateRequest,
+} from '@tangyisheng2-ticket/common';
+import { body } from 'express-validator';
+import { Ticket } from '../models/ticket';
 
 const router = express.Router();
 
@@ -7,9 +13,25 @@ router.post(
     '/api/tickets',
     currentUser,
     requireAuth,
-    (req: Request, res: Response) => {
-        console.log(req.get('set-cookie'));
-        return res.status(200).send({});
+    [
+        body('title').not().isEmpty().withMessage('Title is required'),
+        body('price')
+            .isFloat({ gt: 0 })
+            .withMessage('Price must be greater than 0'),
+    ],
+    validateRequest,
+    async (req: Request, res: Response) => {
+        const { title, price } = req.body;
+
+        const ticket = Ticket.build({
+            title,
+            price,
+            userId: req.currentUser!.id,
+        });
+
+        await ticket.save();
+
+        res.status(201).send(ticket);
     }
 );
 
