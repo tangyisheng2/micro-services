@@ -7,12 +7,12 @@ interface UserAttrs {
     password: string;
 }
 
-// Interface: describes properties of the User Model
+// Interface: describes properties of the User Model (entire collection of data)
 interface UserModel extends mongoose.Model<UserDoc> {
     build(attrs: UserAttrs): UserDoc;
 }
 
-// Interface: describes properties of the user document
+// Interface: describes properties of the user document (saved record)
 interface UserDoc extends mongoose.Document {
     email: string;
     password: string;
@@ -33,6 +33,7 @@ const userSchema = new mongoose.Schema(
     },
     {
         // This will modify the returning UserDoc
+        // manipulate the JSON representation of data
         toJSON: {
             transform(doc, ret) {
                 // @param input: input UserModel
