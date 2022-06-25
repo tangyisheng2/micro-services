@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import {
     currentUser,
     requireAuth,
+    TicketCreatedPublisher,
     validateRequest,
 } from '@tangyisheng2-ticket/common';
 import { body } from 'express-validator';
@@ -30,6 +31,13 @@ router.post(
         });
 
         await ticket.save();
+
+        await new TicketCreatedPublisher(client).publish({
+            id: ticket.id,
+            title: ticket.title,
+            price: ticket.price,
+            userId: ticket.userId,
+        });
 
         res.status(201).send(ticket);
     }
