@@ -31,8 +31,9 @@ it('Should return unauthorized when user dos not own the ticket', async () => {
         .send({
             title: 'test title',
             price: 20,
-        })
-        .expect(201);
+        });
+
+    // console.log(response1.body);
 
     await request(app)
         .put(`/api/tickets/${response1.body.id}`)
