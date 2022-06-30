@@ -48,16 +48,19 @@ it('should fetch order for a particular user', async () => {
         .expect(200);
 
     // Make sure only get the orders for User #2
-    console.log(ticket1);
-    console.log(ticket2);
+    // console.log(ticket1);
+    // console.log(ticket2);
     // console.log(order1);
     // console.log(order2);
-    console.log(user2OrderResponseBody);
+    // console.log(user2OrderResponseBody);
     expect(user2OrderResponseBody.length).toEqual(2);
+
     expect(user2OrderResponseBody[0].id).toEqual(order1.id);
     expect(user2OrderResponseBody[1].id).toEqual(order2.id);
+
     expect(user2OrderResponseBody[0].ticket._id).toBeDefined();
-    // .toEqual(ticket2.id);
+    expect(user2OrderResponseBody[0].ticket._id).toEqual(ticket2.id);
+
     expect(user2OrderResponseBody[1].ticket._id).toBeDefined();
-    // .toEqual(ticket3.id);
+    expect(user2OrderResponseBody[1].ticket._id).toEqual(ticket3.id);
 });
