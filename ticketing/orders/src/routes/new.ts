@@ -16,6 +16,12 @@ const router = express.Router();
 
 const EXPIRATION_WINDOW_SECONDS = 60;
 
+/**
+ * URL: /api/orders
+ * Method: POST
+ * Body: {ticketId: string}
+ * Comment: Create an order to purchase the specified ticket
+ */
 router.post(
     '/api/orders',
     requireAuth,
