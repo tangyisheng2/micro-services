@@ -13,5 +13,9 @@ it('Should return a list of tickets', async () => {
     await createTicket('test2', 20);
     await createTicket('test3', 30);
     const response = await request(app).get('/api/tickets').send().expect(200);
+
+    // Log the data of the ticket list
+    // console.log(response.body);
+
     expect(response.body.length).toEqual(3);
 });
