@@ -10,7 +10,7 @@ interface Event {
  * Generic Class T: an type parameter that extends Event, this class
  * can refer to the class type T that passed in it
  */
-abstract class Listener<T extends Event> {
+export abstract class Listener<T extends Event> {
     abstract subject: T['subject'];
     abstract queueGroupName: string;
     abstract onMessage(data: T['data'], message: Message): void;
@@ -58,4 +58,3 @@ abstract class Listener<T extends Event> {
             : JSON.parse(data.toString('utf-8'));
     }
 }
-export default Listener;
