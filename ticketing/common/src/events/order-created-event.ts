@@ -7,6 +7,7 @@ export interface OrderCreatedEvent {
         id: string;
         status: OrderStatus;
         userId: string;
+        version: number;
         expiresAt: string; // Use string because it is better for json serailzation
         ticket: {
             id: string;
