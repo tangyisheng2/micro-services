@@ -5,8 +5,10 @@ import { Ticket } from '../../models/ticket';
 import { Order, OrderStatus } from '../../models/order';
 
 it('return the order when user owns the order', async () => {
+    const ticketId = new mongoose.Types.ObjectId().toString();
     // Create a ticket
     const ticket = Ticket.build({
+        id: ticketId,
         title: 'test',
         price: 20,
     });
@@ -35,8 +37,10 @@ it('return the order when user owns the order', async () => {
     expect(orderBody.id).toEqual(fetchOrderBody.id);
 });
 it('return an error when user1 trying to fetch order from user2', async () => {
+    const ticketId = new mongoose.Types.ObjectId().toString();
     // Create a ticket
     const ticket = Ticket.build({
+        id: ticketId,
         title: 'test',
         price: 20,
     });

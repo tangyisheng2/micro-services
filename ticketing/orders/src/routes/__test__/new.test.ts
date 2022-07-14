@@ -17,7 +17,9 @@ it('returns an error if the ticket does not exist', async () => {
         .expect(404);
 });
 it('returns an error if the ticket is reserved', async () => {
+    const ticketId = new mongoose.Types.ObjectId().toString();
     const ticket = Ticket.build({
+        id: ticketId,
         title: 'test',
         price: 20,
     });
@@ -38,8 +40,10 @@ it('returns an error if the ticket is reserved', async () => {
         .expect(400);
 });
 it('returns an 201 if the ticket is available', async () => {
+    const ticketId = new mongoose.Types.ObjectId().toString();
     // Create a ticket
     const ticket = Ticket.build({
+        id: ticketId,
         title: 'test',
         price: 20,
     });
@@ -53,8 +57,10 @@ it('returns an 201 if the ticket is available', async () => {
 });
 
 it('emits an order created event', async () => {
+    const ticketId = new mongoose.Types.ObjectId().toString();
     // Create a ticket
     const ticket = Ticket.build({
+        id: ticketId,
         title: 'test',
         price: 20,
     });
