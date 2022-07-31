@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 import { Order, OrderStatus } from './order';
 
 interface TicketAttrs {
@@ -50,6 +51,16 @@ ticketSchema.statics.build = (attrs: TicketAttrs) => {
         price: attrs.price,
     });
 };
+
+ticketSchema.set('versionKey', 'version');
+// ticketSchema.plugin(updateIfCurrentPlugin)
+
+ticketSchema.pre('save', function (done) {
+    // @ts-ignore
+    this.$where = {
+        version: this.get('version') - 1,
+    };
+});
 
 /**
  * This function takes an event and return a query that finds
