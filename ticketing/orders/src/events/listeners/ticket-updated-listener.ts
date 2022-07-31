@@ -1,6 +1,5 @@
 import {
     Listener,
-    NotFoundError,
     Subjects,
     TicketUpdatedEvent,
 } from '@tangyisheng2-ticket/common';
@@ -22,7 +21,10 @@ export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
         if (!ticket) {
             throw new Error('Ticket not Found');
         }
-
+        // Update record
+        ticket.title = data.title;
+        ticket.price = data.price;
+        // Save
         await ticket.save();
 
         message.ack();
